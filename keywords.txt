@@ -1,0 +1,4 @@
+NTPClient	KEYWORD1
+
+syncTime 	KEYWORD2
+currentUnixTime	KEYWORD2
