@@ -1,3 +1,7 @@
+//Code by Jinyu Liu
+//Date and time fuctions adapted from Jeelab's RTClib library @ https://github.com/jcw/rtclib
+
+#include <Arduino.h>
 #include <NTPClient.h>
 #include <ESP8266WiFi.h>
 #include <WiFiUDP.h>
@@ -6,6 +10,9 @@
 
 #define NTP_POLLING_INTERVAL 20000 //poll the ntp server once every 20 sec
 #define TIME_ZONE_OFFSET 8 * 3600
+
+char ssid[] = "ssid";
+char password[] = "password";
 
 WiFiUDP udp;
 NTPClient ntp(&udp);
@@ -62,7 +69,7 @@ void updateTime(){
 
 void setup(){
   Serial.begin(9600);
-  WiFi.begin("WiFiSSID","WiFiPassword");
+  WiFi.begin(ssid,password);
   Serial.println(F("Connecting"));
   while(WiFi.status() != WL_CONNECTED){
     Serial.print(F("."));
