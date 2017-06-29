@@ -3,10 +3,12 @@
 
 #include <Arduino.h>
 #include <NTPClient.h>
-#include <ESP8266WiFi.h>
+#if defined(ESP8266)
+  #include <ESP8266WiFi.h>
+#else
+  #include <WiFi.h>、
+#endif
 #include <WiFiUDP.h>
-
-#define SECONDS_FROM_1970_TO_2000 946684800L
 
 #define NTP_POLLING_INTERVAL 20000 //poll the ntp server once every 20 sec
 #define TIME_ZONE_OFFSET 8 * 3600
@@ -101,7 +103,7 @@ void loop(){
       Serial.println(F("Retrying..."));
     }
     if(unixTime > 0){
-      secondsFrom2000 = ntp.currentUnixTime() + TIME_ZONE_OFFSET + SECONDS_FROM_1970_TO_2000;
+      secondsFrom2000 = ntp.secondsSince2000() + TIME_ZONE_OFFSET;
       updateTime();
       Serial.println(F("Time Sync Successful."));
       Serial.print(F("Current time is: "));
