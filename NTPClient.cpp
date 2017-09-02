@@ -41,7 +41,7 @@ void NTPClient::sendNTPPacket(){
 }
 
 uint32_t NTPClient::processPacket(){
-  if(UDPClient->parsePacket() != 0){
+  if(UDPClient->parsePacket() >= NTP_PACKET_SIZE){
     lastSynced = millis();
     UDPClient->read(packetBuffer, NTP_PACKET_SIZE);
     uint32_t epoch = packetBuffer[43];
